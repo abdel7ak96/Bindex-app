@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'views/login_view.dart';
-import 'views/main_view.dart';
+import 'views/login_view.dart';
+// import 'views/main_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MainView(),
+      home: const LoginView(),
       theme: ThemeData(
           colorScheme: ColorScheme(
               primary: const Color(0x00ba2981).withOpacity(1),

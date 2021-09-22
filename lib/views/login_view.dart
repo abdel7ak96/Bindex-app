@@ -1,13 +1,19 @@
+// ignore_for_file: sized_box_for_whitespace, avoid_print
+
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({ Key? key }) : super(key: key);
+  const LoginView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-          body: Center(
+      child: Scaffold(
+        body: Center(
+          child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
             child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 constraints: const BoxConstraints.expand(),
@@ -64,12 +70,18 @@ class LoginView extends StatelessWidget {
                             fillColor: Colors.white.withOpacity(0.4)),
                       ),
                       const SizedBox(height: 6.0),
-                      const Align(
+                      Align(
                         alignment: Alignment.topRight,
-                        child: Text(
-                          "Forgot password?",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                        child: GestureDetector(
+                          onTap: () {
+                            print("Forgot password clicked!");
+                          },
+                          child: const Text(
+                            "Forgot password?",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 18.0),
@@ -78,7 +90,7 @@ class LoginView extends StatelessWidget {
                         height: 45.0,
                         child: ElevatedButton(
                           onPressed: () => {},
-                          child: const Text("Login"),
+                          child: const Text("LOGIN"),
                           style: ButtonStyle(
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
@@ -92,45 +104,61 @@ class LoginView extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.white,
                           )),
+                      const SizedBox(height: 5.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          ElevatedButton(
-                            onPressed: () => {},
-                            child: const Text("Facebook"),
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(32.0)))),
+                          Container(
+                            width: 100.0,
+                            child: ElevatedButton(
+                              onPressed: () => {},
+                              child: const Text("Facebook",
+                                  style: TextStyle(color: Colors.black)),
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.white),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(32.0)))),
+                            ),
                           ),
-                          ElevatedButton(
-                            onPressed: () => {},
-                            child: const Text("Google"),
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(32.0)))),
+                          Container(
+                            width: 100.0,
+                            child: ElevatedButton(
+                              onPressed: () => {},
+                              child: const Text("Google",
+                                  style: TextStyle(color: Colors.black)),
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.white),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(32.0)))),
+                            ),
                           )
                         ],
                       ),
                       const SizedBox(height: 20.0),
-                      const Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0
-                        )
+                      GestureDetector(
+                        onTap: () {
+                          print("Sign up clicked!");
+                        },
+                        child: const Text("Sign Up",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25.0)),
                       )
                     ],
                   ),
                 ))),
           ),
         ),
-      );
+      ),
+    );
   }
 }
