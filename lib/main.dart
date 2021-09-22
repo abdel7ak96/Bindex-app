@@ -11,7 +11,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: MainView());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const MainView(),
+      theme: ThemeData(
+          colorScheme: ColorScheme(
+              primary: const Color(0x00ba2981).withOpacity(1),
+              primaryVariant: Colors.white,
+              secondary: const Color(0x00ba2981).withOpacity(1),
+              secondaryVariant: Colors.white,
+              surface: Colors.white,
+              background: Colors.white,
+              error: const Color(0x00ba2981).withOpacity(1),
+              onPrimary: Colors.white,
+              onSecondary: Colors.white,
+              onSurface: const Color(0x00ba2981).withOpacity(1),
+              onBackground: const Color(0x00ba2981).withOpacity(1),
+              onError: const Color(0x00ba2981).withOpacity(1),
+              brightness: Brightness.light)),
+    );
   }
 }

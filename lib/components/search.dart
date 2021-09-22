@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field, prefer_final_fields
+// ignore_for_file: unused_field, prefer_final_fields, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -133,7 +133,7 @@ class _SearchState extends State<Search> {
             ),
           ),
           const SizedBox(height: 10.0),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
@@ -141,7 +141,7 @@ class _SearchState extends State<Search> {
                 print(_distanceSliderValue);
                 print(_operationsChipsList);
               },
-              child: Text('Search'),
+              child: const Text('Search'),
             ),
           )
         ])),
