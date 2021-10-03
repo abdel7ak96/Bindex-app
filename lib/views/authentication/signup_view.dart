@@ -1,9 +1,7 @@
 // ignore_for_file: unused_field, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
+import '../../services/auth.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({Key? key}) : super(key: key);
@@ -14,6 +12,8 @@ class SignupView extends StatefulWidget {
 
 class _SignupViewState extends State<SignupView> {
   final _formKey = GlobalKey<FormState>();
+
+  final Authenticate auth = Authenticate();
 
   String _fullname = '';
   String _email = '';
@@ -118,24 +118,7 @@ class _SignupViewState extends State<SignupView> {
                             child: ElevatedButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  try {
-                                    UserCredential userCredential =
-                                        await FirebaseAuth.instance
-                                            .createUserWithEmailAndPassword(
-                                                email: _email,
-                                                password: _password);
-                                  } on FirebaseAuthException catch (e) {
-                                    if (e.code == 'weak-password') {
-                                      print(
-                                          'The password provided is too weak.');
-                                    } else if (e.code ==
-                                        'email-already-in-use') {
-                                      print(
-                                          'The account already exists for that email.');
-                                    }
-                                  } catch (e) {
-                                    print(e);
-                                  }
+                                  auth.signUp(_email, _password);
                                 }
                               },
                               child: const Text('Sign up',

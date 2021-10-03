@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../components/fab_bottom_app_bar.dart';
-import '../components/search.dart';
+import '../../components/fab_bottom_app_bar.dart';
+import '../../components/search.dart';
 
-class MainView extends StatefulWidget {
-  const MainView({Key? key}) : super(key: key);
+class HomeView extends StatefulWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
-  _MainViewState createState() => _MainViewState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
-class _MainViewState extends State<MainView> {
+class _HomeViewState extends State<HomeView> {
   final PageController _pageController = PageController();
   int _currentPageIndex = 0;
 
