@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../../services/auth.dart';
+
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -23,6 +25,9 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+
+    final AuthService auth = AuthService();
+
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -134,8 +139,7 @@ class _LoginViewState extends State<LoginView> {
                           child: ElevatedButton(
                             onPressed: () =>
                                 {if (_formKey.currentState!.validate()) {
-																	print("email : "+_email),
-																	print("password : "+_password)
+																	auth.signIn(_email, _password)
 																}},
                             child: const Text("LOGIN"),
                             style: ButtonStyle(
@@ -191,7 +195,9 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         const SizedBox(height: 20.0),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, '/signup');
+                          },
                           child: const Text("Sign Up",
                               style: TextStyle(
                                   color: Colors.white,

@@ -13,7 +13,6 @@ class SignupView extends StatefulWidget {
 class _SignupViewState extends State<SignupView> {
   final _formKey = GlobalKey<FormState>();
 
-  final AuthService auth = AuthService();
 
   String _fullname = '';
   String _email = '';
@@ -28,6 +27,9 @@ class _SignupViewState extends State<SignupView> {
 
   @override
   Widget build(BuildContext context) {
+
+    final AuthService auth = AuthService();
+    
     return SafeArea(
       child: Scaffold(
           body: Center(
