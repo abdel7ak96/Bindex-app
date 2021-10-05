@@ -1,10 +1,12 @@
+import 'package:bindex/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
 // Views
-import 'views/authentication/signup_view.dart';
+import 'views/auth/signup_view.dart';
 import 'views/home/home_view.dart';
-import 'views/authentication/login_view.dart';
 
 //Wrapper
 import 'views/wrapper.dart';
@@ -35,28 +37,32 @@ class _MyAppState extends State<MyApp> {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: const Wrapper(),
-            theme: ThemeData(
-                colorScheme: ColorScheme(
-                    primary: const Color(0x00ba2981).withOpacity(1),
-                    primaryVariant: Colors.white,
-                    secondary: const Color(0x00ba2981).withOpacity(1),
-                    secondaryVariant: Colors.white,
-                    surface: Colors.white,
-                    background: Colors.white,
-                    error: const Color(0x00ba2981).withOpacity(1),
-                    onPrimary: Colors.white,
-                    onSecondary: Colors.white,
-                    onSurface: const Color(0x00ba2981).withOpacity(1),
-                    onBackground: const Color(0x00ba2981).withOpacity(1),
-                    onError: const Color(0x00ba2981).withOpacity(1),
-                    brightness: Brightness.light)),
-            routes: {
-              '/signup' : (context) => const SignupView(),
-              '/home' : (context) => const HomeView()
-            },
+          return StreamProvider<User?>.value(
+            initialData: null,
+            value: AuthService().user,
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: const Wrapper(),
+              theme: ThemeData(
+                  colorScheme: ColorScheme(
+                      primary: const Color(0x00ba2981).withOpacity(1),
+                      primaryVariant: Colors.white,
+                      secondary: const Color(0x00ba2981).withOpacity(1),
+                      secondaryVariant: Colors.white,
+                      surface: Colors.white,
+                      background: Colors.white,
+                      error: const Color(0x00ba2981).withOpacity(1),
+                      onPrimary: Colors.white,
+                      onSecondary: Colors.white,
+                      onSurface: const Color(0x00ba2981).withOpacity(1),
+                      onBackground: const Color(0x00ba2981).withOpacity(1),
+                      onError: const Color(0x00ba2981).withOpacity(1),
+                      brightness: Brightness.light)),
+              routes: {
+                '/signup' : (context) => const SignupView(),
+                '/home' : (context) => const HomeView()
+              },
+            ),
           );
         }
         // Otherwise, show something whilst waiting for initialization to complete

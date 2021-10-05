@@ -13,7 +13,7 @@ class SignupView extends StatefulWidget {
 class _SignupViewState extends State<SignupView> {
   final _formKey = GlobalKey<FormState>();
 
-  final Authenticate auth = Authenticate();
+  final AuthService auth = AuthService();
 
   String _fullname = '';
   String _email = '';

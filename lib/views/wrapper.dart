@@ -1,17 +1,22 @@
-import 'package:bindex/views/home/home_view.dart';
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:bindex/views/authentication/signup_view.dart';
+import 'package:provider/provider.dart';
 
 // Views
-import 'authentication/login_view.dart';
-// import 'authentication/signup_view.dart';
+import 'auth/login_view.dart';
+import 'home/home_view.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const SignupView();
+
+    final User? user = Provider.of<User>(context);
+    print(user);
+
+    return user == null ? const LoginView() : const HomeView();
   }
 }
