@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../components/fab_bottom_app_bar.dart';
-import '../../components/search.dart';
+import 'pages/search.dart';
 import '../../services/auth.dart';
 
 class HomeView extends StatefulWidget {
