@@ -28,65 +28,61 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initialization,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return const ScreenHolder(text: "Has Error");
-        }
-
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return StreamProvider<User?>.value(
-            initialData: null,
-            value: AuthService().user,
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              home: const Wrapper(),
-              theme: ThemeData(
-                  colorScheme: ColorScheme(
-                      primary: const Color(0x00ba2981).withOpacity(1),
-                      primaryVariant: Colors.white,
-                      secondary: const Color(0x00ba2981).withOpacity(1),
-                      secondaryVariant: Colors.white,
-                      surface: Colors.white,
-                      background: Colors.white,
-                      error: const Color(0x00ba2981).withOpacity(1),
-                      onPrimary: Colors.white,
-                      onSecondary: Colors.white,
-                      onSurface: const Color(0x00ba2981).withOpacity(1),
-                      onBackground: const Color(0x00ba2981).withOpacity(1),
-                      onError: const Color(0x00ba2981).withOpacity(1),
-                      brightness: Brightness.light)),
-              routes: {
-                '/signup' : (context) => const SignupView(),
-                '/home' : (context) => const HomeView()
-              },
-            ),
-          );
-        }
-        // Otherwise, show something whilst waiting for initialization to complete
-        return const ScreenHolder(text: 'Loading');
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          colorScheme: ColorScheme(
+              primary: const Color(0x00ba2981).withOpacity(1),
+              primaryVariant: Colors.white,
+              secondary: const Color(0x00ba2981).withOpacity(1),
+              secondaryVariant: Colors.white,
+              surface: Colors.white,
+              background: Colors.white,
+              error: const Color(0x00ba2981).withOpacity(1),
+              onPrimary: Colors.white,
+              onSecondary: Colors.white,
+              onSurface: const Color(0x00ba2981).withOpacity(1),
+              onBackground: const Color(0x00ba2981).withOpacity(1),
+              onError: const Color(0x00ba2981).withOpacity(1),
+              brightness: Brightness.light)),
+      routes: {
+        '/signup': (context) => const SignupView(),
+        '/home': (context) => const HomeView()
       },
+      home: FutureBuilder(
+        future: _initialization,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const ScreenHolder(text: "Has Error");
+          }
+
+          // Once complete, show your application
+          if (snapshot.connectionState == ConnectionState.done) {
+            return StreamProvider<User?>.value(
+              initialData: null,
+              value: AuthService().user,
+              child: const Wrapper(),
+            );
+          }
+          // Otherwise, show something whilst waiting for initialization to complete
+          return const ScreenHolder(text: 'Loading');
+        },
+      ),
     );
   }
 }
 
 class ScreenHolder extends StatelessWidget {
-  const ScreenHolder({
-    Key? key, this.text = 'Nothing'
-  }) : super(key: key);
+  const ScreenHolder({Key? key, this.text = 'Nothing'}) : super(key: key);
 
   final String text;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         body: Center(
           child: Text(text),
         ),
-      ),
     );
   }
 }
