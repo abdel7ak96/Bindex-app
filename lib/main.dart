@@ -53,19 +53,20 @@ class _MyAppState extends State<MyApp> {
         future: _initialization,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const ScreenHolder(text: "Has Error");
+            return const ScreenHolder(
+                text: "Error initializing Firebase plugin",
+                icon: Icons.report_problem_rounded);
           }
 
           // Once complete, show your application
           if (snapshot.connectionState == ConnectionState.done) {
             return StreamProvider<User?>.value(
-              initialData: null,
-              value: AuthService().user,
-              child: const Wrapper(),
-            );
+                initialData: null,
+                value: AuthService().user,
+                child: const Wrapper());
           }
           // Otherwise, show something whilst waiting for initialization to complete
-          return const ScreenHolder(text: 'Loading');
+          return const ScreenHolder();
         },
       ),
     );
@@ -73,16 +74,29 @@ class _MyAppState extends State<MyApp> {
 }
 
 class ScreenHolder extends StatelessWidget {
-  const ScreenHolder({Key? key, this.text = 'Nothing'}) : super(key: key);
+  const ScreenHolder({Key? key, this.text, this.icon}) : super(key: key);
 
-  final String text;
+  final String? text;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-          child: Text(text),
-        ),
-    );
+        body: Container(
+            width: double.infinity,
+            color: const Color(0x00ba2981).withOpacity(1),
+            child: text != null && icon != null
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(icon, color: Colors.white, size: 75.0),
+                      const SizedBox(height: 20.0),
+                      Text(
+                        text ?? '',
+                        style: const TextStyle(color: Colors.white),
+                      )
+                    ],
+                  )
+                : null));
   }
 }
