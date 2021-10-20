@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../components/fab_bottom_app_bar.dart';
+
+// Pages
 import 'pages/search.dart';
-import '../../services/auth.dart';
+import 'pages/profile.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -23,32 +26,23 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
 
-    AuthService auth = AuthService();
-
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: PageView(
           onPageChanged: setCurrentPageIndex,
           controller: _pageController,
-          children: [
-            const Center(
+          children: const [
+            Center(
               child: Search(),
             ),
-            const Center(
+            Center(
               child: Text("2"),
             ),
-            const Center(
+            Center(
               child: Text("3"),
             ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  auth.signOut();
-                },
-                child: const Text('Sign out')
-              )
-            ),
+            Profile()
           ],
         ),
       ),
