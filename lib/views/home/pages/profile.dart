@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../../services/auth.dart';
 
+enum MenuOptions { editProfile, changePassword, aboutUs, logout }
+
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     AuthService auth = AuthService();
 
     return ListView(children: [
@@ -36,11 +39,38 @@ class Profile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    IconButton(
-                        onPressed: () {
+                    PopupMenuButton<MenuOptions>(
+                      onSelected: (option) {
+                        if(option == MenuOptions.logout) {
                           auth.signOut();
-                        },
-                        icon: const Icon(Icons.more_vert_outlined)),
+                        }
+                      },
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<MenuOptions>>[
+                        const PopupMenuItem<MenuOptions>(
+                          value: MenuOptions.editProfile,
+                          child: Text('Edit Profile'),
+                        ),
+                        const PopupMenuItem<MenuOptions>(
+                          value: MenuOptions.changePassword,
+                          child: Text('Change password'),
+                        ),
+                        const PopupMenuItem<MenuOptions>(
+                          value: MenuOptions.aboutUs,
+                          child: Text('About us'),
+                        ),
+                        PopupMenuItem<MenuOptions>(
+                          value: MenuOptions.logout,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text('Logout'),
+                              Icon(Icons.logout)
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
                 const SizedBox(height: 8.0),
@@ -105,10 +135,7 @@ class Profile extends StatelessWidget {
         mainAxisSpacing: 32.0,
         crossAxisSpacing: 16.0,
         children: const [
-          Book(),
-          Book(),
-          Book(),
-          Book(),
+          Book(author: 'Nassim Nicholas', title: 'Antifragile: Things That Gain From Disorder Antifragile: Things That Gain From Disorder', cover: AssetImage('assets/images/temp/book_cover.jpg')),
         ],
       ),
       const SizedBox(height: 28.0)
@@ -117,9 +144,8 @@ class Profile extends StatelessWidget {
 }
 
 class Indicator extends StatelessWidget {
-  const Indicator({
-    Key? key, required this.icon, required this.value
-  }) : super(key: key);
+  const Indicator({Key? key, required this.icon, required this.value})
+      : super(key: key);
 
   final IconData icon;
   final String value;
@@ -129,9 +155,9 @@ class Indicator extends StatelessWidget {
     return Column(
       children: [
         Icon(icon),
+        const SizedBox(height: 6.0),
         Text(value,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 18.0))
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0))
       ],
     );
   }
@@ -139,25 +165,41 @@ class Indicator extends StatelessWidget {
 
 class Book extends StatelessWidget {
   const Book({
-    Key? key,
+    Key? key, this.cover, required this.title, required this.author
   }) : super(key: key);
+
+  final ImageProvider? cover;
+  final String title;
+  final String author;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        image: const DecorationImage(
-          image: AssetImage('assets/images/temp/book_cover.jpg'),
-          
+      child: cover == null ? Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(child: Text(title)),
+            Column(
+              children: [
+                Divider(color: Colors.grey[400], thickness: 2.0, indent: 10.0, endIndent: 10.0),
+                Text(author , textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold))
+              ],
+            ),
+          ],
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 5,
-            blurRadius: 6,
-          )
-        ]
-      ),
+      ) : null,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          image: cover != null ? DecorationImage(image: cover!) : null,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 5,
+              blurRadius: 6,
+            )
+          ]),
     );
   }
 }
