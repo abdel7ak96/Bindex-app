@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -39,13 +37,12 @@ class Messages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
       itemCount: items.length + 1,
       itemBuilder: (context, index) {
         if (index == 0) {
           return Column(
             children: [
-              ListTile(
+              const ListTile(
                 tileColor: Colors.white,
                 title: Text('Messages',
                     textAlign: TextAlign.center,
@@ -86,15 +83,15 @@ class MessageListTile extends StatelessWidget {
             backgroundImage: avatarPicture,
             radius: 24.0,
           ),
-          title: Text(name, style: TextStyle(fontWeight: FontWeight.w500)),
+          title: Text(name, style: const TextStyle(fontWeight: FontWeight.w500)),
           subtitle: Text(
             message,
-            style: TextStyle(color: Colors.grey),
+            style: const TextStyle(color: Colors.grey),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
           tileColor: Colors.white,
-          contentPadding: EdgeInsets.all(12.0),
+          contentPadding: const EdgeInsets.all(12.0),
           onTap: () {},
         ),
         Divider(color: Colors.grey.shade100, height: 0, thickness: 2),

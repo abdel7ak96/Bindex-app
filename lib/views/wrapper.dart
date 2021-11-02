@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +13,6 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final User? user = Provider.of<User?>(context);
-    print(user);
 
     return user == null ? const LoginView() : const HomeView();
   }
