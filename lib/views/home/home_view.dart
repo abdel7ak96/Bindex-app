@@ -4,6 +4,7 @@ import '../../components/fab_bottom_app_bar.dart';
 // Pages
 import 'pages/search.dart';
 import 'pages/profile.dart';
+import 'pages/messages.dart';
 
 
 class HomeView extends StatefulWidget {
@@ -39,9 +40,7 @@ class _HomeViewState extends State<HomeView> {
             Center(
               child: Text("2"),
             ),
-            Center(
-              child: Text("3"),
-            ),
+            Messages(),
             Profile()
           ],
         ),
