@@ -4,40 +4,106 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
+/// * Dummy data
+/// TODO Delete after Firebase integration
+final items = [
+  {
+    'photo_url': 'assets/images/temp/profile_picture.jpg',
+    'name': 'Michael Philips',
+    'message':
+        'It\'s the one week of the year in which you get the chance to take a tour over all the premise'
+  },
+  {
+    'photo_url': 'assets/images/temp/profile_picture.jpg',
+    'name': 'Sophie Vergas',
+    'message':
+        'Healthy, robust, contracting, and contracting like a lung'
+  },
+  {
+    'photo_url': 'assets/images/temp/profile_picture.jpg',
+    'name': 'Jolenne Wright',
+    'message':
+        'A wonderful serenity has taken possession of my entire soul, like...'
+  },
+  {
+    'photo_url': 'assets/images/temp/profile_picture.jpg',
+    'name': 'Melanie Ford',
+    'message':
+        'Speaking of which, Peter really wants you to come in on Friday'
+  },
+];
+
 class Messages extends StatelessWidget {
   const Messages({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: items.length + 1,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return Column(
+            children: [
+              ListTile(
+                tileColor: Colors.white,
+                title: Text('Messages',
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+              ),
+              Divider(color: Colors.grey.shade200, height: 0, thickness: 2),
+            ],
+          );
+        } else {
+          return MessageListTile(
+              avatarPicture:
+                  AssetImage(items[index - 1]['photo_url']!),
+              name: items[index - 1]['name']!,
+              message:
+                  items[index - 1]['message']!);
+        }
+      },
+    );
+  }
+}
+
+class MessageListTile extends StatelessWidget {
+  const MessageListTile(
+      {Key? key, this.avatarPicture, this.name = '', this.message = ''})
+      : super(key: key);
+
+  final ImageProvider? avatarPicture;
+  final String name;
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
       children: [
-        Container(
-            color: Colors.white,
-            padding: EdgeInsets.all(18.0),
-            child: Text('Messages',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold))),
-        Divider(color: Colors.grey.shade200, height: 0, thickness: 2),
         ListTile(
           leading: CircleAvatar(
-            backgroundImage:
-                AssetImage('assets/images/temp/profile_picture.jpg'),
+            backgroundImage: avatarPicture,
             radius: 24.0,
           ),
-          title: Text('Michael Philips', style: TextStyle(fontWeight: FontWeight.w500)),
+          title: Text(name, style: TextStyle(fontWeight: FontWeight.w500)),
           subtitle: Text(
-            'It\'s the one week of the year in which you get the chance to take a tour over all the premise', style: TextStyle(color: Colors.grey),
+            message,
+            style: TextStyle(color: Colors.grey),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
           tileColor: Colors.white,
           contentPadding: EdgeInsets.all(12.0),
           onTap: () {},
-        )
+        ),
+        Divider(color: Colors.grey.shade100, height: 0, thickness: 2),
       ],
     );
   }
 }
+
+
 
 /**
  * * My custom built Message Tile
